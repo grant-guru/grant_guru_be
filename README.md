@@ -1,4 +1,15 @@
 # grant_guru_be
+
+### Get all scholarships
+### Get a user's favorites
+### Create a favorite
+### 
+
+
+```http
+GET /api/v1/users/:id
+```
+
 Parameters: <br>
 ```
 GOOGLE_UID=12345678901234567890
