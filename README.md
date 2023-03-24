@@ -1,4 +1,4 @@
-# grant_guru_be
+# Grant Guru
 
 ### Get all scholarships
 ### Get a user's favorites
