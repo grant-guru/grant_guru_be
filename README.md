@@ -1,14 +1,15 @@
 # Grant Guru
 
 ### Get all scholarships
-### Get a user's favorites
-### Create a favorite
-### 
 
 
 ```http
 GET /api/v1/scholarships
 ```
+<details close>
+<summary>  Details </summary>
+<br>
+
 
 Parameters: <br>
 ```
@@ -55,3 +56,8 @@ Example Value:
     }
 }
 ```
+</details>
+
+### Get a user's favorites
+### Create a favorite
+### 
