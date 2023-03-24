@@ -7,12 +7,17 @@
 
 
 ```http
-GET /api/v1/users/:id
+GET /api/v1/scholarships
 ```
 
 Parameters: <br>
 ```
-GOOGLE_UID=12345678901234567890
+LOCATION=string
+VETERAN=boolean
+GENDER=string
+ETHNICITY=array
+LGBT=bool
+KEYWORDS=string
 ```
 
 | Code | Description |
@@ -25,17 +30,28 @@ Example Value:
 
 {
     "data": {
+        [
         "id": "1",
-        "type": "user",
+        "type": "scholarship",
         "attributes": {
-            "first_name": "Kaylah",
-            "last_name": "Rose",
-            "phone_number": null,
-            "email": "kaylahrosem@gmail.com",
-            "emergency_contact_name": null,
-            "emergency_contact_phone_number": null,
-            "google_uid": "12345678901234567890"
-        }
+            "title": "DEF CON 31",
+            "amount": "1234" dollar sign or no? USD?
+            "content": "Lorem ipsum dolor sit amet, ..."
+            "URL": "https://linkedin.com/..."
+            }
+        ],
+        [
+        "id": "2",
+        "type": "scholarship"
+        "attributes": {
+            "title": "RailsConf 23",
+            "amount": "1234"
+            "content": "Lorem ipsum dolor sit amet, ..."
+            "URL": "https://linkedin.com/..."
+            }
+        ],
+        [...],
+        [...]
     }
 }
 ```
