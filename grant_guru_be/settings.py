@@ -74,6 +74,10 @@ WSGI_APPLICATION = 'grant_guru_be.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+import environ
+env = environ.Env()
+environ.Env.read_env()
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
