@@ -1,5 +1,40 @@
 # Grant Guru
 
+## MacOS Setup
+
+1. Clone the repository
+```python
+git clone git@github.com:grant-guru/grant_guru_be.git
+```
+2. Switch to repo directory
+```python
+cd grant_guru_be
+```
+3. Create and activate the virtual environment
+```python
+python3 -m venv .venv
+source .venv/bin/activate
+```
+4. Install requirements
+```python
+pip install -r requirements.txt
+```
+5. Create .env file in root directory
+```python
+touch .env
+```
+6. Add environment variables to .env file
+```python
+DB_USERNAME=<postgres username>
+DB_PASSWORD=<postgres password>
+```
+7. Run the server
+```python
+python3 manage.py runserver
+```
+
+## Endpoints
+
 ### Get all scholarships
 
 ```http
