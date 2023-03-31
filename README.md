@@ -33,7 +33,7 @@ DB_PASSWORD=<postgres password>
 python3 manage.py makemigrations
 python3 manage.py migrate
 ```
-9. Run the server
+8. Run the server
 ```python
 python3 manage.py runserver
 ```
