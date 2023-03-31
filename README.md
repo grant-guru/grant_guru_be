@@ -19,7 +19,7 @@ source .venv/bin/activate
 ```python
 pip install -r requirements.txt
 ```
-5. Create .env file in root directory
+5. Create .env file in nested grant_guru_be directory
 ```python
 touch .env
 ```
