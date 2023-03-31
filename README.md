@@ -21,7 +21,7 @@ pip install -r requirements.txt
 ```
 5. Create .env file in nested grant_guru_be directory
 ```python
-touch .env
+touch grant_guru_be/.env
 ```
 6. Add environment variables to .env file
 ```python
