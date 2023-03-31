@@ -305,7 +305,8 @@ Example Response:
         "type": "user",
         "attributes": {
             "first_name": "Hugh",
-            "last_name": "Jackman"
+            "last_name": "Jackman",
+            "image_url": "http://www.image-url.com"
         }
     }  
 }
