@@ -8,7 +8,7 @@ from django.http import JsonResponse, HttpResponse
 class GrantViewSet(viewsets.ModelViewSet):
   queryset = Grant.objects.all()
   serializer_class = GrantSerializer
-  
+
 # @csrf_exempt
 def grant_list(request):
   if request.method == 'GET':
@@ -22,6 +22,24 @@ def grant_detail(request, pk):
   except Grant.DoesNotExist:
     return HttpResponse(status=404)
   
+def favorite(request, pk):
+  try:
+    user = Grant.objects.get(pk=pk)
+    favorites = user.grants.all()
+    serializer = GrantSerializer(favorites, many=True)
+    return JsonResponse(serializer.data, safe=False)
+  except Grant.DoesNotExist:
+    return HttpResponse(status=404)
+  
+def favorite_create(request, pk_user, pk_grant):
+  # TODO: error handling
+  if request.method == 'POST':
+    import ipdb; ipdb.set_trace()
+    user = User.objects.get(pk=pk_user)
+    favorite = Grant.objects.get(pk=pk_grant)
+    user.grants.add(favorite)
+    serializer = GrantSerializer(favorite, many=False)
+    return JsonResponse(serializer.data, safe=False), HttpResponse(status=201)
 
 class UserViewSet(viewsets.ModelViewSet):
   # import ipdb; ipdb.set_trace()
