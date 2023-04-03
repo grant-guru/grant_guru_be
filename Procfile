@@ -1,1 +1,1 @@
-web: gunicorn grant_guru_be.wsg
+web: gunicorn grant_guru_be.wsgi
