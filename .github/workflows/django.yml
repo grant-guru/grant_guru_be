@@ -26,7 +26,7 @@ jobs:
     env:
       SECRET_KEY: ${{secrets.SECRET_KEY}}
       DB_NAME: grant_guru_be
-      DB_USERNAME: user
+      DB_USER: user
       DB_PASSWORD: password
       DB_HOST: 127.0.0.1
       DB_PORT: 5432
