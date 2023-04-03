@@ -50,4 +50,4 @@ jobs:
       run: python3 manage.py migrate
     - name: Run Tests
       run: |
-        python3 manage.py test
+        pytest
