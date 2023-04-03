@@ -11,10 +11,15 @@ class GrantViewSet(viewsets.ModelViewSet):
 
 def grant_list(request):
   if request.method == 'GET':
-    import ipdb; ipdb.set_trace()
-    grants = Grant.objects.all(lgbt = request.META['HTTP_LGBT'])
+    # import ipdb; ipdb.set_trace()
+    # grants = Grant.objects.all(lgbt = request.META['HTTP_LGBT'])
+    grants = Grant.objects.all(query_params(request.META))
     serializer = GrantSerializer(grants, many=True)
     return JsonResponse(serializer.data, safe=False)
+  
+def query_params(meta_data):
+    'HTTP_LGBT'
+    "HTTP_STATE"
 
 def grant_detail(request, pk):
   try:
