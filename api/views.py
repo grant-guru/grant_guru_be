@@ -11,7 +11,8 @@ class GrantViewSet(viewsets.ModelViewSet):
 
 def grant_list(request):
   if request.method == 'GET':
-    grants = Grant.objects.all()
+    import ipdb; ipdb.set_trace()
+    grants = Grant.objects.all(lgbt = request.META['HTTP_LGBT'])
     serializer = GrantSerializer(grants, many=True)
     return JsonResponse(serializer.data, safe=False)
 
@@ -40,12 +41,11 @@ def favorite_create(request, pk_user, pk_grant):
   favorite = Grant.objects.get(pk=pk_grant)
   if request.method == 'POST':
     # print("create a favorite conditional branch")
-    # import ipdb; ipdb.set_trace()
     favorite.users.add(user)
     # user.grants.add(favorite)
     serializer = GrantSerializer(favorite, many=False)
     # import ipdb; ipdb.set_trace()
-    # return JsonResponse(serializer.data), HttpResponse(status=201)
+    # return JsonResponse(serializer.data), HttpReponse(status=201)
     return JsonResponse(serializer.data)
   elif request.method == 'DELETE':
     print("delete a favorite conditional branch")
