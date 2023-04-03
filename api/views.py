@@ -11,16 +11,11 @@ class GrantViewSet(viewsets.ModelViewSet):
 
 def grant_list(request):
   if request.method == 'GET':
-    # import ipdb; ipdb.set_trace()
-    # grants = Grant.objects.all(lgbt = request.META['HTTP_LGBT'])
-    grants = Grant.objects.all(query_params(request.META))
+    # TODO: parse through query params request.META['HTTP_KEY_NAME']
+    grants = Grant.objects.all()
     serializer = GrantSerializer(grants, many=True)
     return JsonResponse(serializer.data, safe=False)
   
-def query_params(meta_data):
-    'HTTP_LGBT'
-    "HTTP_STATE"
-
 def grant_detail(request, pk):
   try:
     grant = Grant.objects.get(pk=pk)
@@ -45,31 +40,14 @@ def favorite_create(request, pk_user, pk_grant):
   user = User.objects.get(pk=pk_user)
   favorite = Grant.objects.get(pk=pk_grant)
   if request.method == 'POST':
-    # print("create a favorite conditional branch")
     favorite.users.add(user)
-    # user.grants.add(favorite)
     serializer = GrantSerializer(favorite, many=False)
-    # import ipdb; ipdb.set_trace()
-    # return JsonResponse(serializer.data), HttpReponse(status=201)
     return JsonResponse(serializer.data)
+    # TODO: add http status 201
   elif request.method == 'DELETE':
     print("delete a favorite conditional branch")
     user.favorites.remove(favorite)
-    # n HttpResponseRedirect after s
-
-  # except 
 
 class UserViewSet(viewsets.ModelViewSet):
-  # import ipdb; ipdb.set_trace()
   queryset = User.objects.all()
   serializer_class = UserSerializer
-
-
-# def user(request):
-  # user = User.objects.filter(id=request)
-  # serializer = UserSerializer(user, many=False)
-  # return JsonResponse(serializer.data)
-  # get the user
-  # serialize it
-  # return json
-
