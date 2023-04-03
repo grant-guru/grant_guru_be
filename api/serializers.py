@@ -5,8 +5,8 @@ class UserSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
     fields = '__all__'
-
+  
 class GrantSerializer(serializers.ModelSerializer):
-  class Meta:
+  class Meta: 
     model = Grant
-    fields = '__all__'
+    fields = '__all__' 
