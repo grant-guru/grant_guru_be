@@ -11,6 +11,7 @@ class GrantViewSet(viewsets.ModelViewSet):
 
 # @csrf_exempt
 def grant_list(request):
+  # import ipdb; ipdb.set_trace()
   if request.method == 'GET':
     grants = Grant.objects.all()
     serializer = GrantSerializer(grants, many=True)
@@ -19,6 +20,9 @@ def grant_list(request):
 def grant_detail(request, pk):
   try:
     grant = Grant.objects.get(pk=pk)
+    serializer = GrantSerializer(grant, many=False)
+    return JsonResponse(serializer.data, safe=False)
+
   except Grant.DoesNotExist:
     return HttpResponse(status=404)
   
@@ -33,13 +37,19 @@ def favorite(request, pk):
   
 def favorite_create(request, pk_user, pk_grant):
   # TODO: error handling
+  user = User.objects.get(pk=pk_user)
+  favorite = Grant.objects.get(pk=pk_grant)
   if request.method == 'POST':
-    import ipdb; ipdb.set_trace()
-    user = User.objects.get(pk=pk_user)
-    favorite = Grant.objects.get(pk=pk_grant)
+    print("create a favorite conditional branch")
     user.grants.add(favorite)
     serializer = GrantSerializer(favorite, many=False)
     return JsonResponse(serializer.data, safe=False), HttpResponse(status=201)
+  elif request.method == 'DELETE':
+    print("delete a favorite conditional branch")
+    user.favorites.remove(favorite)
+    # n HttpResponseRedirect after s
+
+  # except 
 
 class UserViewSet(viewsets.ModelViewSet):
   # import ipdb; ipdb.set_trace()
