@@ -18,11 +18,14 @@ jobs:
           POSTGRES_USER: user
           POSTGRES_PASSWORD: password
           POSTGRES_DB: grant_guru_be
-          SECRET_KEY: ${{secrets.SECRET_KEY}}
+
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
+    
+    env:
+      SECRET_KEY: ${{secrets.SECRET_KEY}}
+      
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.11.2
