@@ -20,4 +20,4 @@ class Grant(models.Model):
   immigrant = models.BooleanField()
   url = models.URLField()
   image_url = models.URLField()
-  users = models.ManyToManyField(User)
+  users = models.ManyToManyField(User, blank=True)
