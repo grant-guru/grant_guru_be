@@ -27,3 +27,7 @@ class GrantViewSet(viewsets.ModelViewSet):
     response = {"data": GrantSerializer(self.queryset, many=True).data }
     return JsonResponse(response, safe=False)
   
+  def retrieve(self, request):
+    instance = self.get_object()
+    response = { "data": GrantSerializer(instance, many=False).data }
+    return JsonResponse(response, safe=False)
