@@ -14,13 +14,12 @@ def favorite_create(request, pk_user, pk_grant):
   user = User.objects.get(pk=pk_user)
   favorite = Grant.objects.get(pk=pk_grant)
   if request.method == 'POST':
-    favorite.users.add(user)
+    user.grants.add(favorite)
     serializer = GrantSerializer(favorite, many=False)
-    return JsonResponse(serializer.data)
+    return Response(serializer.data)
     # TODO: add http status 201
   elif request.method == 'DELETE':
-    print("delete a favorite conditional branch")
-    user.favorites.remove(favorite)
+    user.grants.remove(favorite)
 
 class UserViewSet(viewsets.ModelViewSet):
   queryset = User.objects.all()
