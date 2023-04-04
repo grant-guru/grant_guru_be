@@ -19,10 +19,8 @@ def grant_list(request):
     immigrant = request.GET.get('immigrant','')
     unfiltered_ethnicity = request.GET.get('ethnicity','')
     
-    if unfiltered_ethnicity != '':
-      ethnicity = sorted(unfiltered_ethnicity.replace('[','').replace(']','').split(','))
-    # import ipdb; ipdb.set_trace()
     q = {}
+    # import ipdb; ipdb.set_trace()
     if education != '':
       q.update({'education': education})
 
@@ -35,7 +33,8 @@ def grant_list(request):
     if lgbt != '':
       q.update({'lgbt': lgbt})
 
-    if ethnicity != '':
+    if unfiltered_ethnicity != '':
+      ethnicity = sorted(unfiltered_ethnicity.replace('[','').replace(']','').split(','))
       q.update({'ethnicity': ethnicity})
     
     if veteran != '':
