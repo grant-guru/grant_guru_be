@@ -10,7 +10,6 @@ from django.views.decorators.csrf import csrf_exempt
 class GrantViewSet(viewsets.ModelViewSet):
   queryset = Grant.objects.all()
   serializer_class = GrantSerializer
-  # filter_backends = [DjangoFilterBackend]
 
 def grant_list(request):
   if request.method == 'GET':
@@ -18,10 +17,14 @@ def grant_list(request):
     gender = request.GET.get('gender','')
     state = request.GET.get('state','')
     lgbt = request.GET.get('lgbt','')
-    ethnicity = request.GET.get('ethnicity','')
     veteran = request.GET.get('veteran','')
     immigrant = request.GET.get('immigrant','')
-  
+    unfiltered_ethnicity = request.GET.get('ethnicity','')
+    # import ipdb; ipdb.set_trace()
+    x = unfiltered_ethnicity.split()
+    ethnicity = sorted(unfiltered_ethnicity)
+
+
     q = {}
     if education != '':
       q.update({'education': education})
@@ -45,8 +48,9 @@ def grant_list(request):
       q.update({'immigrant': immigrant})
 
 
+    # import ipdb; ipdb.set_trace()
     grants = Grant.objects.filter(**q)
-    import ipdb; ipdb.set_trace()
+
 
 
     # search = query_params(request.META) #Grant._meta.get_fields() - gets the field names in the table
