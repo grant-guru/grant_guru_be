@@ -16,10 +16,19 @@ def favorite_create(request, pk_user, pk_grant):
   if request.method == 'POST':
     user.grants.add(favorite)
     serializer = GrantSerializer(favorite, many=False)
-    return Response(serializer.data)
+    # import ipdb; ipdb.set_trace()
+    return JsonResponse(serializer.data)
     # TODO: add http status 201
   elif request.method == 'DELETE':
+    # import ipdb; ipdb.set_trace()
     user.grants.remove(favorite)
+
+# @action(detail=True, methods=['get'])
+def favorites(request, pk_user=None):
+  user = user = User.objects.get(pk=pk_user)
+  favorites = user.grants.all()
+  serializer = GrantSerializer(favorites, many=True, safe=False)
+  return JsonResponse(serializer.data)
 
 class UserViewSet(viewsets.ModelViewSet):
   queryset = User.objects.all()
@@ -32,20 +41,14 @@ class UserViewSet(viewsets.ModelViewSet):
   def retrieve(self, request, pk=None):
     instance = self.get_object()
     serializer = UserSerializer(instance, many=False)
+    # import ipdb; ipdb.set_trace()
     return Response(serializer.data)
-  
-  @action(detail=True, methods=['get'])
-  def favorites(self, request, pk=None):
-    user = self.get_object()
-    favorites = user.grants.all()
-    serializer = GrantSerializer(favorites, many=True)
-    return Response(serializer.data)
-
 
 class GrantViewSet(viewsets.ModelViewSet):
   queryset = Grant.objects.all()
   serializer_class = GrantSerializer
 
+  
   def list(self, request):
     education = request.GET.get('education','')
     gender = request.GET.get('gender','')
@@ -87,5 +90,3 @@ class GrantViewSet(viewsets.ModelViewSet):
     instance = self.get_object()
     serializer = GrantSerializer(instance, many=False)
     return Response(serializer.data)
-  
-
