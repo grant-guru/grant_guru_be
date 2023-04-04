@@ -50,9 +50,9 @@ def grant_list(request):
 
 
     # search = query_params(request.META) #Grant._meta.get_fields() - gets the field names in the table
-    grants = Grant.objects.filter(title=title)
-    # serializer = GrantSerializer(grants, many=True)
-    # return JsonResponse(serializer.data, safe=False)
+    # grants = Grant.objects.filter(title=title)
+    serializer = GrantSerializer(grants, many=True)
+    return JsonResponse(serializer.data, safe=False)
   
   def get_queryset(self):
     import ipdb; ipdb.set_trace()
