@@ -10,14 +10,14 @@ class UserViewSet(viewsets.ModelViewSet):
 
   def list(self, request):
     response = { "data": UserSerializer(self.queryset, many=True).data }
-    return JsonResponse(response, safe=False)
-    # return Response(response)
+    # return JsonResponse(response, safe=False)
+    return Response(response)
   
   def retrieve(self, request, pk=None):
     instance = self.get_object()
     response = { "data": UserSerializer(instance, many=False).data }
-    return JsonResponse(response, safe=False)
-    # return Response(response)
+    # return JsonResponse(response, safe=False)
+    return Response(response)
 
 class GrantViewSet(viewsets.ModelViewSet):
   queryset = Grant.objects.all()
@@ -25,10 +25,11 @@ class GrantViewSet(viewsets.ModelViewSet):
 
   def list(self, request):
     response = {"data": GrantSerializer(self.queryset, many=True).data }
-    return JsonResponse(response, safe=False)
-    # return Response(response)
+    # return JsonResponse(response, safe=False)
+    return Response(response)
   
   def retrieve(self, request):
     instance = self.get_object()
     response = { "data": GrantSerializer(instance, many=False).data }
+    # return JsonResponse(response, safe=False)
     return Response(response, safe=False)
