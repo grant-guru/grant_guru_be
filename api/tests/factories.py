@@ -17,13 +17,11 @@ degrees = [
   'Trade/Technical'
 ]
 ethnicities = [
-  'White', 
   'Black or African American', 
   'American Indian or Alaska Native',
   'Hispanic or Latino',
   'Asian',
-  'Native Hawaiian or Other Pacific Islander',
-  'Other'
+  'Native Hawaiian or Other Pacific Islander'
 ]
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -44,7 +42,7 @@ class GrantFactory(factory.django.DjangoModelFactory):
   deadline = factory.LazyAttribute(lambda x: fake.future_date(end_date='+300d'))
   education = factory.LazyAttribute(lambda x: fake.random_element(elements=degrees))
   state = factory.LazyAttribute(lambda x: fake.random_element(elements=states))
-  ethnicity = factory.LazyAttribute(lambda x: fake.random_elements(elements=ethnicities, unique=True))
+  ethnicity = factory.LazyAttribute(lambda x: fake.random_element(elements=ethnicities))
   women = factory.LazyAttribute(lambda x: fake.boolean())
   lgbt = factory.LazyAttribute(lambda x: fake.boolean())
   veteran = factory.LazyAttribute(lambda x: fake.boolean())

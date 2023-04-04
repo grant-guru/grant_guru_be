@@ -27,21 +27,47 @@ class UserViewSet(viewsets.ModelViewSet):
     favorites = user.grants.all()
     serializer = GrantSerializer(favorites, many=True)
     return Response(serializer.data)
-  
-  # @action(detail=True, methods=['post'])
-  # def favorites(self, request, pk=None, pk_grant=None):
-  #   user = self.get_object()
-  #   favorite = Grant.objects.get(pk=pk_grant)
-  #   user.grants.add(favorite)
-  #   serializer = GrantSerializer(favorite, many=False)
-  #   return JsonResponse(serializer.data)
+
 
 class GrantViewSet(viewsets.ModelViewSet):
   queryset = Grant.objects.all()
   serializer_class = GrantSerializer
 
   def list(self, request):
-    serializer = GrantSerializer(self.queryset, many=True)
+    education = request.GET.get('education','')
+    gender = request.GET.get('gender','')
+    state = request.GET.get('state','')
+    lgbt = request.GET.get('lgbt','')
+    veteran = request.GET.get('veteran','')
+    immigrant = request.GET.get('immigrant','')
+    unfiltered_ethnicity = request.GET.get('ethnicity','')
+    
+    query = {'women': False}
+
+    if education != '':
+      query.update({'education': education})
+
+    if gender == 'Woman':
+      del query['women']
+
+    if state != '':
+      query.update({'state': state})
+
+    if lgbt != '':
+      query.update({'lgbt': lgbt})
+
+    if unfiltered_ethnicity != '':
+      filtered_ethnicity = unfiltered_ethnicity.replace('[','').replace(']','').split(',')
+      query.update({'ethnicity__in': filtered_ethnicity})
+    
+    if veteran != '':
+      query.update({'veteran': veteran})
+
+    if immigrant != '':
+      query.update({'immigrant': immigrant})
+    
+    grants = Grant.objects.filter(**query)
+    serializer = GrantSerializer(grants, many=True)
     return Response(serializer.data)
   
   def retrieve(self, request, pk=None):
