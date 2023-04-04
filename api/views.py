@@ -14,22 +14,36 @@ class GrantViewSet(viewsets.ModelViewSet):
 
 def grant_list(request):
   if request.method == 'GET':
-    # filterset_fields = ['education','gender','state','lgbt','ethnicity','veteran','title','immigrant']
     education = request.GET.get('education','')
+    gender = request.GET.get('gender','')
+    state = request.GET.get('state','')
+    lgbt = request.GET.get('lgbt','')
+    ethnicity = request.GET.get('ethnicity','')
     veteran = request.GET.get('veteran','')
-    title = request.GET.get('title','')
-    # grants = Grant.objects.all(lgbt = request.META['HTTP_LGBT'])
+    immigrant = request.GET.get('immigrant','')
   
-
     q = {}
     if education != '':
       q.update({'education': education})
 
+    if gender != '':
+      q.update({'gender': gender})
+
+    if state != '':
+      q.update({'state': state})
+
+    if lgbt != '':
+      q.update({'lgbt': lgbt})
+
+    if ethnicity != '':
+      q.update({'ethnicity': ethnicity})
+    
     if veteran != '':
       q.update({'veteran': veteran})
 
-    if title != '':
-      q.update({'title': title})
+    if immigrant != '':
+      q.update({'immigrant': immigrant})
+
 
     grants = Grant.objects.filter(**q)
     import ipdb; ipdb.set_trace()
