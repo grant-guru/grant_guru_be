@@ -23,7 +23,7 @@ class GrantTests(TestCase):
     assert isinstance(grant.deadline, date)
     assert isinstance(grant.education, str)
     assert isinstance(grant.state, str)
-    assert isinstance(grant.ethnicity, list)
+    assert isinstance(grant.ethnicity, str)
     assert isinstance(grant.women, bool)
     assert isinstance(grant.lgbt, bool)
     assert isinstance(grant.veteran, bool)
