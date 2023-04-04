@@ -27,6 +27,14 @@ class UserViewSet(viewsets.ModelViewSet):
     favorites = user.grants.all()
     serializer = GrantSerializer(favorites, many=True)
     return Response(serializer.data)
+  
+  # @action(detail=True, methods=['post'])
+  # def favorites(self, request, pk=None, pk_grant=None):
+  #   user = self.get_object()
+  #   favorite = Grant.objects.get(pk=pk_grant)
+  #   user.grants.add(favorite)
+  #   serializer = GrantSerializer(favorite, many=False)
+  #   return JsonResponse(serializer.data)
 
 class GrantViewSet(viewsets.ModelViewSet):
   queryset = Grant.objects.all()
