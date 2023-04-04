@@ -27,8 +27,8 @@ def favorite_create(request, pk_user, pk_grant):
 def favorites(request, pk_user=None):
   user = user = User.objects.get(pk=pk_user)
   favorites = user.grants.all()
-  serializer = GrantSerializer(favorites, many=True, safe=False)
-  return JsonResponse(serializer.data)
+  serializer = GrantSerializer(favorites, many=True)
+  return JsonResponse(serializer.data, safe=False)
 
 class UserViewSet(viewsets.ModelViewSet):
   queryset = User.objects.all()
