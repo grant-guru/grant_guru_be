@@ -44,7 +44,7 @@ class GrantViewSet(viewsets.ModelViewSet):
     serializer = GrantSerializer(self.queryset, many=True)
     return Response(serializer.data)
   
-  def retrieve(self, request):
+  def retrieve(self, request, pk=None):
     instance = self.get_object()
     serializer = GrantSerializer(instance, many=False)
     return Response(serializer.data)
