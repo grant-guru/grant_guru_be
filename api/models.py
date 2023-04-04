@@ -10,7 +10,7 @@ class Grant(models.Model):
   deadline = models.DateField()
   education = models.TextField()
   state = models.TextField()
-  ethnicity = fields.ArrayField(models.TextField(), default=list)
+  ethnicity = models.TextField()
   women = models.BooleanField()
   lgbt = models.BooleanField()
   veteran = models.BooleanField()
