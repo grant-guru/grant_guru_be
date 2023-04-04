@@ -4,8 +4,6 @@ from rest_framework.parsers import JSONParser
 from api.serializers import UserSerializer, GrantSerializer
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-# from rest_framework import DjangoFilterBackend
-
 
 class GrantViewSet(viewsets.ModelViewSet):
   queryset = Grant.objects.all()
@@ -20,11 +18,10 @@ def grant_list(request):
     veteran = request.GET.get('veteran','')
     immigrant = request.GET.get('immigrant','')
     unfiltered_ethnicity = request.GET.get('ethnicity','')
+    
+    if unfiltered_ethnicity != '':
+      ethnicity = sorted(unfiltered_ethnicity.replace('[','').replace(']','').split(','))
     # import ipdb; ipdb.set_trace()
-    x = unfiltered_ethnicity.split()
-    ethnicity = sorted(unfiltered_ethnicity)
-
-
     q = {}
     if education != '':
       q.update({'education': education})
@@ -47,19 +44,16 @@ def grant_list(request):
     if immigrant != '':
       q.update({'immigrant': immigrant})
 
-
     # import ipdb; ipdb.set_trace()
     grants = Grant.objects.filter(**q)
-
-
+    serializer = GrantSerializer(grants, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
     # search = query_params(request.META) #Grant._meta.get_fields() - gets the field names in the table
     # grants = Grant.objects.filter(title=title)
-    serializer = GrantSerializer(grants, many=True)
-    return JsonResponse(serializer.data, safe=False)
   
-  def get_queryset(self):
-    import ipdb; ipdb.set_trace()
+  # def get_queryset(self):
+    # import ipdb; ipdb.set_trace()
 
 # def query_params(meta_data):
 #     'HTTP_STATE'
@@ -68,7 +62,7 @@ def grant_list(request):
     #   return i.items()
 
       
-    # "HTTP_STATE"
+
 
 def grant_detail(request, pk):
   try:
