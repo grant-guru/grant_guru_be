@@ -1,0 +1,53 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: grant_guru_be
+
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    
+    env:
+      SECRET_KEY: ${{secrets.SECRET_KEY}}
+      DB_NAME: grant_guru_be
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_HOST: 127.0.0.1
+      PORT: 5432
+      
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.11.2
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.11.2"
+    - name: Install Dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Lint with flake8
+      run: |
+        pip install flake8
+        flake8 .
+      continue-on-error: true
+    - name: Run Migrations
+      run: python3 manage.py migrate
+    - name: Run Tests
+      run: |
+        pytest
