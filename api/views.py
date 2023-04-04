@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from .models import User, Grant
 from rest_framework import viewsets
-# from rest_framework.response import Response
+from rest_framework.response import Response
 # from rest_framework.parsers import JSONParser
 from api.serializers import UserSerializer, GrantSerializer
 from django.http import JsonResponse, HttpResponse
@@ -12,30 +12,26 @@ class UserViewSet(viewsets.ModelViewSet):
   serializer_class = UserSerializer
 
   def list(self, request):
-    response = { "data": UserSerializer(self.queryset, many=True).data }
-    return JsonResponse(response, safe=False)
-    # return Response(response)
+    serializer = UserSerializer(self.queryset, many=True)
+    return Response(serializer.data)
   
   def retrieve(self, request, pk=None):
     instance = self.get_object()
-    response = { "data": UserSerializer(instance, many=False).data }
-    return JsonResponse(response, safe=False)
-    # return Response(response)
+    serializer = UserSerializer(instance, many=False)
+    return Response(serializer.data)
 
 class GrantViewSet(viewsets.ModelViewSet):
   queryset = Grant.objects.all()
   serializer_class = GrantSerializer
 
   def list(self, request):
-    response = {"data": GrantSerializer(self.queryset, many=True).data }
-    return JsonResponse(response, safe=False)
-    # return Response(response)
+    serializer = GrantSerializer(self.queryset, many=True)
+    return Response(serializer.data)
   
   def retrieve(self, request):
     instance = self.get_object()
-    response = { "data": GrantSerializer(instance, many=False).data }
-    return JsonResponse(response, safe=False)
-    # return Response(response, safe=False)
+    serializer = GrantSerializer(instance, many=False)
+    return Response(serializer.data)
 
 def favorite(request, pk):
   try:
