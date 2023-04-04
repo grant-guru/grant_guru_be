@@ -1,10 +1,7 @@
 from django.db import models
 from django.contrib.postgres import fields
 
-class User(models.Model):
-  first_name = models.TextField()
-  last_name = models.TextField()
-  
+
 class Grant(models.Model):
   title = models.TextField()
   organization = models.TextField()
@@ -20,4 +17,9 @@ class Grant(models.Model):
   immigrant = models.BooleanField()
   url = models.URLField()
   image_url = models.URLField()
-  users = models.ManyToManyField(User, blank=True)
+
+class User(models.Model):
+  first_name = models.TextField()
+  last_name = models.TextField()
+  grants = models.ManyToManyField(Grant, blank=True)
+  
