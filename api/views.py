@@ -8,6 +8,20 @@ from api.serializers import UserSerializer, GrantSerializer
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
+def favorite_create(request, pk_user, pk_grant):
+  # TODO: error handling
+  user = User.objects.get(pk=pk_user)
+  favorite = Grant.objects.get(pk=pk_grant)
+  if request.method == 'POST':
+    favorite.users.add(user)
+    serializer = GrantSerializer(favorite, many=False)
+    return JsonResponse(serializer.data)
+    # TODO: add http status 201
+  elif request.method == 'DELETE':
+    print("delete a favorite conditional branch")
+    user.favorites.remove(favorite)
+
 class UserViewSet(viewsets.ModelViewSet):
   queryset = User.objects.all()
   serializer_class = UserSerializer
@@ -75,16 +89,4 @@ class GrantViewSet(viewsets.ModelViewSet):
     serializer = GrantSerializer(instance, many=False)
     return Response(serializer.data)
   
-@csrf_exempt
-def favorite_create(request, pk_user, pk_grant):
-  # TODO: error handling
-  user = User.objects.get(pk=pk_user)
-  favorite = Grant.objects.get(pk=pk_grant)
-  if request.method == 'POST':
-    favorite.users.add(user)
-    serializer = GrantSerializer(favorite, many=False)
-    return JsonResponse(serializer.data)
-    # TODO: add http status 201
-  elif request.method == 'DELETE':
-    print("delete a favorite conditional branch")
-    user.favorites.remove(favorite)
+
