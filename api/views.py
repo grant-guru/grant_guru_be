@@ -9,21 +9,6 @@ from api.serializers import UserSerializer, GrantSerializer
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
-# @csrf_exempt
-# def favorite_create(request, pk_user, pk_grant):
-#   # TODO: error handling
-#   user = User.objects.get(pk=pk_user)
-#   favorite = Grant.objects.get(pk=pk_grant)
-#   if request.method == 'POST':
-#     user.grants.add(favorite)
-#     serializer = GrantSerializer(favorite, many=False)
-#     return JsonResponse(serializer.data)
-#     # TODO: add http status 201
-#   elif request.method == 'DELETE':
-#     user.grants.remove(favorite)
-#     serializer = GrantSerializer(favorite, many=False)
-#     return JsonResponse(serializer.data)
-
 class UserViewSet(viewsets.ModelViewSet):
   queryset = User.objects.all()
   serializer_class = UserSerializer
@@ -87,9 +72,6 @@ class FavoriteViewSet(viewsets.ModelViewSet):
   queryset = Grant.objects.all()
   serializer_class = GrantSerializer
 
-  # @api_view(('GET',))
-  # @renderer_classes((TemplateHTMLRenderer, JSONRenderer))
-  # @action(detail=True, methods=['get'])
   def list(self, request, pk_user=None):
     user = User.objects.get(pk=pk_user)
     grants = user.grants.all()
@@ -97,26 +79,16 @@ class FavoriteViewSet(viewsets.ModelViewSet):
     return Response(serializer.data)
 
   @csrf_exempt
-  # @api_view(('post',))
   def create(self, request, pk_user, pk_grant):
-    # TODO: error handling
     user = User.objects.get(pk=pk_user)
     favorite = Grant.objects.get(pk=pk_grant)
+    user.grants.add(favorite)
+    serializer = GrantSerializer(favorite, many=False)
+    return Response(serializer.data)
 
-    if request.method == 'POST':
-      user.grants.add(favorite)
-      serializer = GrantSerializer(favorite, many=False)
-      return Response(serializer.data)
-    elif request.method == 'DELETE':
-      user.grants.remove(favorite)
-      serializer = GrantSerializer(favorite, many=False)
-      return Response(serializer.data)
-
-  # @csrf_exempt
-  # def destroy(self, request, pk_user, pk_grant):
-  #   # TODO: add http status 201
-  #   user = User.objects.get(pk=pk_user)
-  #   favorite = Grant.objects.get(pk=pk_grant)
-  #   user.grants.remove(favorite)
-  #   serializer = GrantSerializer(favorite, many=False)
-  #   return Response(serializer.data)
+  def destroy(self, request, pk_user, pk_grant):
+    user = User.objects.get(pk=pk_user)
+    favorite = Grant.objects.get(pk=pk_grant)
+    user.grants.remove(favorite)
+    serializer = GrantSerializer(favorite, many=False)
+    return Response(serializer.data)
