@@ -1,4 +1,4 @@
-import factory
+import factory, random
 from faker import Faker
 fake = Faker()
 from api.models import User, Grant
@@ -21,7 +21,7 @@ ethnicities = [
   'American Indian or Alaska Native',
   'Hispanic or Latino',
   'Asian',
-  'Native Hawaiian or Other Pacific Islander'
+  'Native Hawaiian or Other Pacific Islander',
 ]
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -40,12 +40,28 @@ class GrantFactory(factory.django.DjangoModelFactory):
   amount = factory.LazyAttribute(lambda x: fake.random_int(min=100, max=10000))
   description = factory.LazyAttribute(lambda x: fake.paragraph())
   deadline = factory.LazyAttribute(lambda x: fake.future_date(end_date='+300d'))
+
+  # if random.random() > 0.25:
+  #   education = 'All'
+  # else:
+  #   education = factory.LazyAttribute(lambda x: fake.random_element(elements=degrees))
+
+  # if random.random() > 0.25:
+  #   ethnicity = 'All'
+  # else:
+  #   ethnicity = factory.LazyAttribute(lambda x: fake.random_element(elements=ethnicities))
+
+  # if random.random() > 0.25:
+  #   state = 'All'
+  # else:
+  #   state = factory.LazyAttribute(lambda x: fake.random_element(elements=states))
+    
   education = factory.LazyAttribute(lambda x: fake.random_element(elements=degrees))
-  state = factory.LazyAttribute(lambda x: fake.random_element(elements=states))
   ethnicity = factory.LazyAttribute(lambda x: fake.random_element(elements=ethnicities))
-  women = factory.LazyAttribute(lambda x: fake.boolean())
-  lgbt = factory.LazyAttribute(lambda x: fake.boolean())
-  veteran = factory.LazyAttribute(lambda x: fake.boolean())
-  immigrant = factory.LazyAttribute(lambda x: fake.boolean())
+  state = factory.LazyAttribute(lambda x: fake.random_element(elements=states))
+  women = factory.LazyAttribute(lambda x: fake.boolean(chance_of_getting_true=25))
+  lgbt = factory.LazyAttribute(lambda x: fake.boolean(chance_of_getting_true=25))
+  veteran = factory.LazyAttribute(lambda x: fake.boolean(chance_of_getting_true=25))
+  immigrant = factory.LazyAttribute(lambda x: fake.boolean(chance_of_getting_true=25))
   url = factory.LazyAttribute(lambda x: fake.url())
   image_url = factory.LazyAttribute(lambda x: fake.image_url())
