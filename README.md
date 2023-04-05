@@ -349,6 +349,11 @@ Example Response:
 </details>
 </details>
 
+## Schema
+<img width="858" alt="Screen Shot 2023-04-05 at 4 35 54 PM" src="https://user-images.githubusercontent.com/111713452/230226819-59875498-d5d0-4a39-8211-28f53b5d9b2b.png">
+
+
+
 ## Contributors
 
 <i>All participants in this project are graduates from the Turing School of Software & Design.</i> <br> <br>
