@@ -21,5 +21,6 @@ class Grant(models.Model):
 class User(models.Model):
   first_name = models.TextField()
   last_name = models.TextField()
+  image_url = models.URLField()
   grants = models.ManyToManyField(Grant, blank=True)
   
