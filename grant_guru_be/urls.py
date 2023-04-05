@@ -17,14 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from api import views
-# from users import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'scholarships', views.GrantViewSet)
-# router.register(r'users', views.UserViewSet.favorite)
-# router.register('users/<int:pk_user>/scholarships/<int:pk_grant>', views.FavoriteViewSet.create, basename='grants')
-# router.register('users/<int:pk_user>/favorites/', views.FavoriteViewSet.list, basename='grants')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
