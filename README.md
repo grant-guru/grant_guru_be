@@ -1,42 +1,28 @@
 # Grant Guru
 
-## MacOS Setup
+## MacOS Installation
 
 1. Clone the repository
-```python
-git clone git@github.com:grant-guru/grant_guru_be.git
-```
-2. Switch to repo directory
-```python
-cd grant_guru_be
-```
+2. `CD` into the root directory
 3. Create and activate the virtual environment
-```python
-python3 -m venv .venv
-source .venv/bin/activate
+```C
+$ python3 -m venv .venv
+$ source .venv/bin/activate
 ```
-4. Install requirements
+4. Install requirements with `pip install -r requirements.txt`
+5. Run `$ touch grant_guru_be/.env` to create a `.env` environment variable file in the grant_guru_be directory
+
+6. Add your database environment variables to the `.env` file
 ```python
-pip install -r requirements.txt
+SECRET_KEY=<django-insecure>
+DB_NAME=<your_database_name>
+DB_USER=<your_database_user>
+DB_PASSWORD=<your_database_password>
+DB_HOST=<your_database_host>
+PORT=<your_database_port>
 ```
-5. Create .env file in nested grant_guru_be directory
-```python
-touch grant_guru_be/.env
-```
-6. Add environment variables to .env file
-```python
-DB_USERNAME=<postgres username>
-DB_PASSWORD=<postgres password>
-```
-7. Run migrations
-```python
-python3 manage.py makemigrations
-python3 manage.py migrate
-```
-8. Run the server
-```python
-python3 manage.py runserver
-```
+7. Run migrations `python3 manage.py migrate`
+8. Start the server `python3 manage.py runserver`
 
 ## Endpoints
 
