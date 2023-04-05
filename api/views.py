@@ -16,12 +16,13 @@ def favorite_create(request, pk_user, pk_grant):
   if request.method == 'POST':
     user.grants.add(favorite)
     serializer = GrantSerializer(favorite, many=False)
-    # import ipdb; ipdb.set_trace()
     return JsonResponse(serializer.data)
     # TODO: add http status 201
   elif request.method == 'DELETE':
-    # import ipdb; ipdb.set_trace()
     user.grants.remove(favorite)
+    serializer = GrantSerializer(favorite, many=False)
+    return JsonResponse(serializer.data)
+
 
 # @action(detail=True, methods=['get'])
 def favorites(request, pk_user=None):
@@ -41,7 +42,6 @@ class UserViewSet(viewsets.ModelViewSet):
   def retrieve(self, request, pk=None):
     instance = self.get_object()
     serializer = UserSerializer(instance, many=False)
-    # import ipdb; ipdb.set_trace()
     return Response(serializer.data)
 
 class GrantViewSet(viewsets.ModelViewSet):
