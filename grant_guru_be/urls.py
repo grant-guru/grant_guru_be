@@ -23,6 +23,7 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 # router.register(r'users', views.UserViewSet.favorite)
 router.register(r'scholarships', views.GrantViewSet)
+# router.register('users/<int:pk_user>/scholarships/<int:pk_grant>', views.FavoriteViewSet.create, basename='grants')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

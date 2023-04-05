@@ -3,32 +3,11 @@ from .models import User, Grant
 from rest_framework import viewsets
 from rest_framework.response import Response
 # from rest_framework.parsers import JSONParser
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view, renderer_classes
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from api.serializers import UserSerializer, GrantSerializer
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-
-@csrf_exempt
-def favorite_create(request, pk_user, pk_grant):
-  # TODO: error handling
-  user = User.objects.get(pk=pk_user)
-  favorite = Grant.objects.get(pk=pk_grant)
-  if request.method == 'POST':
-    user.grants.add(favorite)
-    serializer = GrantSerializer(favorite, many=False)
-    # import ipdb; ipdb.set_trace()
-    return JsonResponse(serializer.data)
-    # TODO: add http status 201
-  elif request.method == 'DELETE':
-    # import ipdb; ipdb.set_trace()
-    user.grants.remove(favorite)
-
-# @action(detail=True, methods=['get'])
-def favorites(request, pk_user=None):
-  user = user = User.objects.get(pk=pk_user)
-  favorites = user.grants.all()
-  serializer = GrantSerializer(favorites, many=True)
-  return JsonResponse(serializer.data, safe=False)
 
 class UserViewSet(viewsets.ModelViewSet):
   queryset = User.objects.all()
@@ -48,7 +27,6 @@ class GrantViewSet(viewsets.ModelViewSet):
   queryset = Grant.objects.all()
   serializer_class = GrantSerializer
 
-  
   def list(self, request):
     education = request.GET.get('education','')
     gender = request.GET.get('gender','')
@@ -90,3 +68,28 @@ class GrantViewSet(viewsets.ModelViewSet):
     instance = self.get_object()
     serializer = GrantSerializer(instance, many=False)
     return Response(serializer.data)
+
+  @api_view(('GET',))
+  # @renderer_classes((TemplateHTMLRenderer, JSONRenderer))
+  # @action(detail=True, methods=['get'])
+  def favorites(request, pk_user=None):
+    user = user = User.objects.get(pk=pk_user)
+    grants = user.grants.all()
+    serializer = GrantSerializer(grants, many=True)
+    # import pdb; pdb.set_trace()
+    return Response(serializer.data)
+
+  @csrf_exempt
+  @api_view(('post',))
+  def favorite_create(request, pk_user, pk_grant):
+    # TODO: error handling
+    user = User.objects.get(pk=pk_user)
+    favorite = Grant.objects.get(pk=pk_grant)
+    if request.method == 'POST':
+      user.grants.add(favorite)
+      serializer = GrantSerializer(favorite, many=False)
+      return Response(serializer.data)
+      # TODO: add http status 201
+    elif request.method == 'DELETE':
+      # import ipdb; ipdb.set_trace()
+      user.grants.remove(favorite)
