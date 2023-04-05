@@ -349,3 +349,12 @@ Example Response:
 </details>
 </details>
 
+## Contributors
+
+<i>All participants in this project are graduates from the Turing School of Software & Design.</i> <br> <br>
+  
+<b>Kaylah Rose Mitchell</b> <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GitHub: <a href="https://github.com/kaylahrose">@kaylahrose</a> <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LinkedIn: <a href="https://www.linkedin.com/in/kaylahrose/">kaylahrose</a> <br>
+
+
