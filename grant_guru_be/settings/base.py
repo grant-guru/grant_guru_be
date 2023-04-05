@@ -29,6 +29,14 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = env('SECRET_KEY')
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_METHODS = (
+        'GET',
+        'POST',
+        'PUT',
+        'PATCH',
+        'DELETE',
+        'OPTIONS'
+    )
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
