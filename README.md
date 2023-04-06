@@ -53,13 +53,13 @@ GET /api/v1/scholarships
 
 Parameters: <br>
 ```
-EDUCATION=string
-GENDER=string
-STATE=string
-LGBT=bool
-ETHNICITY=array
-VETERAN=bool
-IMMIGRANT=bool
+education=string
+gender=string
+state=string
+lgbt=bool
+ethnicity=array
+veteran=bool
+immigrant=bool
 ```
 
 | Code | Description |

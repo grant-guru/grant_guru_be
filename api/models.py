@@ -18,6 +18,9 @@ class Grant(models.Model):
   url = models.URLField()
   image_url = models.URLField()
 
+  def __str__(self):
+    return self.title
+
 class User(models.Model):
   first_name = models.TextField()
   last_name = models.TextField()
