@@ -1,7 +1,8 @@
-import factory, random
+import factory
 from faker import Faker
 fake = Faker()
 from api.models import User, Grant
+from collections import OrderedDict
 
 states = [
   'AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
@@ -41,24 +42,27 @@ class GrantFactory(factory.django.DjangoModelFactory):
   description = factory.LazyAttribute(lambda x: fake.paragraph())
   deadline = factory.LazyAttribute(lambda x: fake.future_date(end_date='+300d'))
 
-  # if random.random() > 0.25:
-  #   education = 'All'
-  # else:
-  #   education = factory.LazyAttribute(lambda x: fake.random_element(elements=degrees))
+  education = factory.LazyAttribute(lambda x: fake.random_element(
+    elements=OrderedDict([
+      ('All', 0.5),
+      (fake.random_element(elements=degrees), 0.5)
+    ])
+  ))
 
-  # if random.random() > 0.25:
-  #   ethnicity = 'All'
-  # else:
-  #   ethnicity = factory.LazyAttribute(lambda x: fake.random_element(elements=ethnicities))
+  ethnicity = factory.LazyAttribute(lambda x: fake.random_element(
+    elements=OrderedDict([
+      ('All', 0.5),
+      (fake.random_element(elements=ethnicities), 0.5)
+    ])
+  ))
 
-  # if random.random() > 0.25:
-  #   state = 'All'
-  # else:
-  #   state = factory.LazyAttribute(lambda x: fake.random_element(elements=states))
-    
-  education = factory.LazyAttribute(lambda x: fake.random_element(elements=degrees))
-  ethnicity = factory.LazyAttribute(lambda x: fake.random_element(elements=ethnicities))
-  state = factory.LazyAttribute(lambda x: fake.random_element(elements=states))
+  state = factory.LazyAttribute(lambda x: fake.random_element(
+    elements=OrderedDict([
+      ('All', 0.5),
+      (fake.random_element(elements=states), 0.5)
+    ])
+  ))
+
   women = factory.LazyAttribute(lambda x: fake.boolean(chance_of_getting_true=25))
   lgbt = factory.LazyAttribute(lambda x: fake.boolean(chance_of_getting_true=25))
   veteran = factory.LazyAttribute(lambda x: fake.boolean(chance_of_getting_true=25))
