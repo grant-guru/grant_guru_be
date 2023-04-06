@@ -350,7 +350,8 @@ Example Response:
 </details>
 
 ## Schema
-<img width="858" alt="Screen Shot 2023-04-05 at 4 35 54 PM" src="https://user-images.githubusercontent.com/111713452/230226819-59875498-d5d0-4a39-8211-28f53b5d9b2b.png">
+
+![Screen Shot 2023-04-06 at 11 37 34 AM](https://user-images.githubusercontent.com/111713452/230454687-e4f0acc4-0e3e-4e7a-a05a-5a44a78f4198.png)
 
 
 
