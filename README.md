@@ -2,6 +2,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/powered-by-energy-drinks.svg)](https://forthebadge.com)
 
+Visit our API [here](https://grant-guru-be.herokuapp.com/api/v1/scholarships/)!
 
 ## MacOS Installation
 
@@ -57,7 +58,32 @@ Example Response:
             "last_name": "Jackman",
             "image_url": "http://www.image-url.com"
         }
-    }  
+    }
+    "relationships": {
+        "grants": {
+            "data": [
+                {
+                    "type": "Grant",
+                    "id": "2"
+                },
+                {
+                    "type": "Grant",
+                    "id": "3"
+                },
+                {
+                    "type": "Grant",
+                    "id": "4"
+                },
+                {
+                    "type": "Grant",
+                    "id": "52"
+                }
+            ],
+        "meta": {
+            "count": 4
+            }
+        }
+    }
 }
 ```
 </details>
