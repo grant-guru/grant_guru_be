@@ -34,28 +34,38 @@ class GrantViewSet(viewsets.ModelViewSet):
     immigrant = request.GET.get('immigrant','')
     unfiltered_ethnicity = request.GET.get('ethnicity','')
     
-    query = {'women': False}
+    query = {}
 
-    if education != '':
-      query.update({'education': education})
+    if education:
+      query.update({
+        'education__in': ['All', education]
+      })
 
-    if gender == 'Woman':
-      del query['women']
+    if gender:
+      if gender == 'Woman':
+        query.update({'women': True})
+      else:
+        query.update({'women': False})
 
-    if state != '':
-      query.update({'state': state})
+    if state:
+      query.update({
+        'state__in': ['All', state]
+      })
 
-    if lgbt != '':
-      query.update({'lgbt': lgbt})
-
-    if unfiltered_ethnicity != '':
+    if unfiltered_ethnicity:
       filtered_ethnicity = unfiltered_ethnicity.replace('[','').replace(']','').split(',')
-      query.update({'ethnicity__in': filtered_ethnicity})
+      filtered_ethnicity.append('All')
+      query.update({
+        'ethnicity__in': filtered_ethnicity
+      })
+
+    if lgbt:
+      query.update({'lgbt': lgbt})
     
-    if veteran != '':
+    if veteran:
       query.update({'veteran': veteran})
 
-    if immigrant != '':
+    if immigrant:
       query.update({'immigrant': immigrant})
     
     grants = Grant.objects.filter(**query)
